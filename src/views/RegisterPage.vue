@@ -1,6 +1,7 @@
 <template>
   <v-sheet class="bg-deep-purple pa-12" rounded>
     <v-card class="mx-auto px-6 py-8" max-width="344">
+      <h1>Register</h1>
       <v-form
         v-model="form"
         @submit.prevent="onSubmit"
@@ -22,14 +23,14 @@
           placeholder="Enter your password"
         ></v-text-field>
 
-        <v-text-field
+        <!-- <v-text-field
           v-model="confirm_password"
           :rules="[required]"
           clearable
           type="password"
           label="Confirm your password"
           placeholder="Password"
-        ></v-text-field>
+        ></v-text-field> -->
 
         <br>
 
@@ -53,11 +54,15 @@
 <script setup>
 import axios from 'axios';
 import { ref } from 'vue';
+import Cookies from 'js-cookie';
+import router from '../router/index'
+
   let form = ref(false);
   let email = ref(null);
   let password = ref(null);
   let confirm_password = ref(null);
   let loading = ref(false);
+
 
   const required = (v) => {
     return !!v || 'Field is required'
@@ -69,12 +74,17 @@ import { ref } from 'vue';
     console.log(confirm_password);
     let formData = {
       email: email.value,
-      pass: password.value
+      password: password.value
     }
     console.log(formData);
-    axios.post('http://localhost:4000/', formData)
-      .then((res) => { console.log(res); })
+    axios.post('http://localhost:4000/register', formData)
+      .then((res) => {
+        Cookies.set('jwt', res.data)
+        console.log(res.data);
+        router.push('/login')
+      })
       .catch((err) => console.log(err))
+    
 
   }
   
