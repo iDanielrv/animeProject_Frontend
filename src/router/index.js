@@ -1,5 +1,7 @@
 // Composables
 import { createRouter, createWebHistory, } from 'vue-router'
+import Cookies from 'js-cookie';
+
 
 const routes = [
   {
@@ -21,7 +23,7 @@ const routes = [
       },
       {
         path: '/login',
-        name: 'Login',
+        name: 'LoginPage',
         component: () => import(/* webpackChunkName: "Login" */ '@/views/LoginPage.vue'),
       },
       {
@@ -32,10 +34,23 @@ const routes = [
     ],
   },
 ]
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 })
+
+router.beforeEach((to, from, next) => {
+  let publicPages = ['/','/login', '/register'];
+  let isAuthenticated = !publicPages.includes(to.path);
+  let loggedIn = Cookies.get('jwt')
+
+
+  if (isAuthenticated && !loggedIn) next('/login');
+  else next();
+})
+
+
+
+
 
 export default router

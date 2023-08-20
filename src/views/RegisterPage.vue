@@ -60,7 +60,6 @@ import router from '../router/index'
   let form = ref(false);
   let email = ref(null);
   let password = ref(null);
-  let confirm_password = ref(null);
   let loading = ref(false);
 
 
@@ -69,23 +68,18 @@ import router from '../router/index'
   }
 
   const onSubmit = () => {
-    console.log(email);
-    console.log(password);
-    console.log(confirm_password);
     let formData = {
       email: email.value,
       password: password.value
     }
-    console.log(formData);
     axios.post('http://localhost:4000/register', formData)
       .then((res) => {
         Cookies.set('jwt', res.data)
+        console.log('res ponto dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
         console.log(res.data);
         router.push('/login')
       })
       .catch((err) => console.log(err))
-    
-
   }
   
 </script>

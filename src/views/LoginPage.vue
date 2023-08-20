@@ -36,27 +36,46 @@
         </v-btn>
       </v-form>
       <h3 class="goToRegister">Caso não tenha uma conta clique <router-link to="/register">aqui</router-link> </h3>
-
+            <!-- Exemplo de uso da Composable para verificar autenticação -->
+            <div v-if="isAuthenticated">Você está logado.</div>
+            <div v-else>Você não está logado.</div>
     </v-card>
-  </v-sheet>
+  </v-sheet>0
 </template>
-<script>
-  export default {
-    data: () => ({
-      form: false,
-      email: null,
-      password: null,
-      loading: false,
-    }),
-    methods: {
-      required (v) {
-        console.log(v);
-        console.log(!v);
-        console.log(!!v);
-        return !!v || 'Field is required'
-      },
-    },
+<script setup>
+import axios from 'axios';
+import { ref } from 'vue'
+import Cookies from 'js-cookie';
+import router from '@/router';
+
+
+let password = ref(null);
+let email = ref(null);
+
+  const required = (v) => {
+    return !!v || 'Field is required'
   }
+
+let isAuthenticated = ref(!!Cookies.get('jwt'));
+
+const onSubmit = () => {
+  console.log(email.value, password.value);
+  
+  const formData = {
+    email: email.value,
+    password: password.value
+  }
+  
+  axios.post('http://localhost:4000/login', formData)
+  .then((res) => {
+    Cookies.set('jwt', res.data.msg)
+    isAuthenticated.value = true;
+    console.log(isAuthenticated.value);
+    router.push('/')
+  })
+}
+
+
 </script>
 
 <style>
