@@ -39,16 +39,18 @@
             <!-- Exemplo de uso da Composable para verificar autenticação -->
             <div v-if="isAuthenticated">Você está logado.</div>
             <div v-else>Você não está logado.</div>
+            {{ $store.getters.userEmail }}
     </v-card>
-  </v-sheet>0
+  </v-sheet>
 </template>
 <script setup>
 import axios from 'axios';
 import { ref } from 'vue'
 import Cookies from 'js-cookie';
 import router from '@/router';
+import { useStore } from 'vuex';
 
-
+const store = useStore();
 let password = ref(null);
 let email = ref(null);
 
@@ -65,11 +67,13 @@ const onSubmit = () => {
     email: email.value,
     password: password.value
   }
-  
+
   axios.post('http://localhost:4000/login', formData)
   .then((res) => {
-    Cookies.set('jwt', res.data.msg)
-    isAuthenticated.value = true;
+    Cookies.set('jwt', res.data.token)
+    console.log('res.data.email');
+    console.log(res.data.email);
+    store.dispatch('login', { email: res.data.email})
     console.log(isAuthenticated.value);
     router.push('/')
   })
