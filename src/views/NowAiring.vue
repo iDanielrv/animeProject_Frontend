@@ -2,6 +2,7 @@
   <v-container class="fill-height">
     <v-responsive class="align-center text-center fill-height">
     
+      <div v-if="checkLogado" >
       <div>
       <h1>Esta Season:</h1>  
       </div>
@@ -10,28 +11,41 @@
         <v-progress-linear color="blue-lighten-3" indeterminate :height="7"></v-progress-linear>
       </div>
       <div v-else class="animesBox">
-        <div class="animeCard" v-for="anime in listaAnimes" :key="anime">
-          <div class="animeCardContent">
-            <h1 class="animeTitle">{{ anime.title }}</h1>
-            <div class="animeImageContainer">
-              <img class="animeImage" :src="anime.images.jpg.image_url" >
+        <div>
+
+          <div class="animeCard" v-for="anime in listaAnimes" :key="anime">
+            <div class="animeCardContent">
+              <h1 class="animeTitle">{{ anime.title }}</h1>
+              <div class="animeImageContainer">
+                <img class="animeImage" :src="anime.images.jpg.image_url" >
+              </div>
             </div>
           </div>
         </div>
-      </div> 
+      </div>
+    </div> 
+    <div v-else>
+      <h1>Este é um site para listagem de animes!</h1>
+      <h2> :)</h2>
+    </div>
     
     </v-responsive>
   </v-container>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted,computed } from 'vue'
 import axios from 'axios'
+import { useStore } from 'vuex';
 
+
+const store = useStore()
 
 const listaAnimes = ref([]);
 const isLoading = ref(true)
-
+let checkLogado = computed(() => {
+  return store.state.isAuthenticated
+})
 
 const animesFunction = async () => {
   try {
