@@ -28,7 +28,11 @@
         </v-col>
       </v-row>
       
-      <v-btn @click="searchData" variant="tonal">
+      <v-btn 
+      @click="searchData" 
+      variant="tonal"
+      :disabled="seasonSearch && yearSearch? false : true"
+      >
         Button
       </v-btn>
     </v-container>
@@ -47,7 +51,7 @@
         v-model="page"
         @update:modelValue="changePage"
         :length="paginationLenght"
-        :total-visible="4"
+        :total-visible="6"
       ></v-pagination>
     </div>
   </div>
@@ -65,6 +69,8 @@ const isLoading = ref(false)
 let baseJikanUri = 'https://api.jikan.moe/v4/seasons'
 let yearSearch = ref('');
 let seasonSearch = ref('');
+let lastYearSearch = ref('');
+let lastSeasonSearch = ref('')
 
 let animesData = ref([])
 
@@ -91,7 +97,6 @@ let paginationLenght = ref(null)
 let searchData = async () => {
   isLoading.value = true;
 
-
   console.log('seasonSearch dentro da função, para ver oq acontece hehe');
   console.log(seasonSearch.value);
   console.log('yearSearch dentro da função, para ver oq acontece hehe');
@@ -99,10 +104,17 @@ let searchData = async () => {
 
   const response = await axios.get(`${baseJikanUri}/${yearSearch.value}/${seasonSearch.value}?limit=${limit.value}&page=${page.value}&filter=tv`)
 
+  if (yearSearch.value !== lastYearSearch.value || seasonSearch.value !== lastSeasonSearch.value) {
+    page.value = 1;
+  }
+
   animesData.value = response.data.data
 
   console.log(response.data.pagination);
   paginationLenght.value = response.data.pagination.last_visible_page
+
+  lastYearSearch.value = yearSearch.value
+  lastSeasonSearch.value = seasonSearch.value
 
 
   isLoading.value = false
@@ -110,6 +122,8 @@ let searchData = async () => {
 
 
 let changePage = async () => {
+  console.log('asdasdasdasdas');
+  console.log(lastSeasonSearch.value, lastYearSearch.value);
   searchData()
 }
 

@@ -32,9 +32,24 @@ const routes = [
         component: () => import(/* webpackChunkName: "RegisterPage" */ '@/views/RegisterPage.vue'),
       },
       {
-        path: '/seasonsSearch',
+        path: '/seasonSearch',
         name: 'SeasonList',
         component: () => import(/* webpackChunkName: "RegisterPage" */ '@/views/SeasonList.vue'),
+      },
+      {
+        path: '/upcoming',
+        name: 'upcomingAnimes',
+        component: () => import(/* webpackChunkName: "RegisterPage" */ '@/views/UpComing.vue'),
+      },
+      {
+        path: '/testandohehe',
+        name: 'testandoAnimes',
+        component: () => import(/* webpackChunkName: "RegisterPage" */ '@/views/TestandoHehe.vue'),
+      },
+      {
+        path: '/testandoFilter',
+        name: 'testandoFilter',
+        component: () => import(/* webpackChunkName: "RegisterPage" */ '@/views/TestandoFilter.vue'),
       },
     ],
   },
