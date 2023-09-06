@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <default-bar />
-      aaaaaaaaaaaaa
     <default-view />
   </v-app>
 </template>
