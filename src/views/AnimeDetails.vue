@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div class="animeDetailsContainer">
+        <div>
         <h1>Anime com id de rota: {{ $route.params.id }} Details page</h1>
     </div>
     <div class="container" v-if="isLoading">
@@ -32,7 +33,7 @@
             :src="dataAnime.trailer.embed_url">
         </iframe>
     </div>
-
+    </div>
 </template>
 
 <script setup>
@@ -55,6 +56,10 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+
+.animeDetailsContainer {
+    color: white;
+}
 .airingInfo {
     display: flex;
     flex-direction: row;

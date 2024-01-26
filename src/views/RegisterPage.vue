@@ -1,6 +1,7 @@
 <template>
-  <v-sheet class="bg-deep-purple pa-12" rounded>
-    <v-card class="mx-auto px-6 py-8" max-width="344">
+  <div  class="registerContainer">
+    <v-sheet >
+    <v-card class="registerBackground">
       <h1>Register</h1>
       <v-form
         v-model="form"
@@ -38,7 +39,7 @@
           :disabled="!form"
           :loading="loading"
           block
-          color="success"
+          class="registerBtn"
           size="large"
           type="submit"
           variant="elevated"
@@ -50,6 +51,8 @@
     
     </v-card>
   </v-sheet>
+  </div>
+  
 </template>
 <script setup>
 import axios from 'axios';
@@ -84,9 +87,39 @@ import router from '../router/index'
   
 </script>
 
-<style>
+<style scoped>
 .goToLogin {
   font-size: 12px;
   margin-top: 15px;
 }
+
+
+.registerContainer {
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  display: flex;
+  margin-top: 5%;
+  margin-bottom: 3%;
+  margin: none;
+
+}
+
+.registerBackground {
+  margin: none;
+  background-color: #2b2c31;
+  width: 350px;
+  padding: 25px;
+  color: white;
+  border-radius: 15px;
+}
+
+.v-sheet {
+  border-radius: 55px;
+}
+
+.registerBtn {
+  background-color: #c8e662;
+}
+
 </style>

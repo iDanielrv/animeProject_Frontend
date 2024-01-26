@@ -75,7 +75,7 @@ let lastSeasonSearch = ref('')
 let animesData = ref([])
 
 
-let seasonItems = ['winter', 'spring', 'summer', 'fall'];
+let seasonItems = ['winter', 'spring', 'summer', 'fall','asdasdas', 'asdasdasdas', 'adasdasdasd', 'adasdasdasd', 'adasdasdasd'];
 let yearItems = [];
 
 

@@ -4,10 +4,6 @@ import Cookies from 'js-cookie';
 
 
 const routes = [
-  {
-    path: '/',
-    component: () => import('@/layouts/default/Default.vue'),
-    children: [
       {
         path: '/',
         name: 'Home',
@@ -24,36 +20,35 @@ const routes = [
       {
         path: '/login',
         name: 'LoginPage',
-        component: () => import(/* webpackChunkName: "Login" */ '@/views/LoginPage.vue'),
+        component: () => import('@/views/LoginPage.vue'),
       },
       {
         path: '/register',
         name: 'RegisterPage',
-        component: () => import(/* webpackChunkName: "RegisterPage" */ '@/views/RegisterPage.vue'),
+        component: () => import('@/views/RegisterPage.vue'),
       },
       {
         path: '/seasonSearch',
         name: 'SeasonList',
-        component: () => import(/* webpackChunkName: "RegisterPage" */ '@/views/SeasonList.vue'),
+        component: () => import('@/views/SeasonList.vue'),
       },
       {
         path: '/upcoming',
         name: 'upcomingAnimes',
-        component: () => import(/* webpackChunkName: "RegisterPage" */ '@/views/UpComing.vue'),
+        component: () => import('@/views/UpComing.vue'),
       },
       {
         path: '/testandohehe',
-        name: 'testandoAnimes',
-        component: () => import(/* webpackChunkName: "RegisterPage" */ '@/views/TestandoHehe.vue'),
+        name: 'TestandoHehe',
+        component: () => import('@/views/TestandoHehe.vue'),
       },
       {
         path: '/testandoFilter',
         name: 'testandoFilter',
-        component: () => import(/* webpackChunkName: "RegisterPage" */ '@/views/TestandoFilter.vue'),
+        component: () => import('@/views/TestandoFilter.vue'),
       },
-    ],
-  },
-]
+    ]
+    
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
@@ -68,8 +63,6 @@ router.beforeEach((to, from, next) => {
   if (isAuthenticated && !loggedIn) next('/login');
   else next();
 })
-
-
 
 
 
